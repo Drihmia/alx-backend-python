@@ -2,7 +2,9 @@
 """This module contains zoom_array as a function"""
 from typing import Tuple, List
 
+
 def zoom_array(lst: Tuple, factor: int = 2) -> List:
+    """Return a zoomed list of lst by the factor"""
     zoomed_in: List = [
         item for item in lst
     ]
