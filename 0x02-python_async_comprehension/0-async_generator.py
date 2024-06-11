@@ -2,10 +2,10 @@
 """This module contains async_generator as asynchronous generator"""
 from random import uniform
 from asyncio import sleep
-from typing import AsyncGenerator, Any
+from typing import AsyncGenerator
 
 
-async def async_generator() -> AsyncGenerator[float, Any]:
+async def async_generator() -> AsyncGenerator[float, None]:
     """
     A coroutine that takes no arguments,
     will loop 10 times, each time asynchronously wait 1 second,
