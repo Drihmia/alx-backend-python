@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """This module contains async_comprehension as coroutine"""
-from typing import Coroutine, List
+from typing import List
 async_generator = __import__('0-async_generator').async_generator
 
 
-async def async_comprehension() -> List[Coroutine]:
+async def async_comprehension() -> List[float]:
     """
     A coroutine That takes no arguments.
 
