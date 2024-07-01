@@ -38,7 +38,7 @@ class TestGithubOrgClient(unittest.TestCase):
 
     @patch('client.get_json', return_value=TEST_PAYLOAD[0][1])
     def test_public_repos(self, mock_get_jsonn):
-        """ A test case for test_public_repos method """
+        """ A test case for public_repos method """
         git_client = GithubOrgClient('google')
 
         with patch.object(GithubOrgClient,
@@ -46,15 +46,22 @@ class TestGithubOrgClient(unittest.TestCase):
                           return_value="""
                           https://api.github.com/orgs/google/repos""",
                           new_callable=PropertyMock) as r:
-            # r.return_value="https://api.github.com/orgs/google/repos"
             pub_repos = git_client.public_repos()
-            expected = ['episodes.dart', 'cpp-netlib', 'dagger',
-                        'ios-webkit-debug-proxy', 'google.github.io', 'kratu',
-                        'build-debian-cloud', 'traceur-compiler', 'firmata.py'
-                        ]
+            expected = TEST_PAYLOAD[0][2]
             self.assertEqual(pub_repos, expected)
             r.assert_called_once()
             mock_get_jsonn.assert_called_once()
+
+    @parameterized.expand([
+        ({"license": {"key": "my_license"}}, "my_license", True),
+        ({"license": {"key": "other_license"}}, "my_license", False),
+    ])
+    def test_has_license(self, repo, license_key, expected):
+        """ A test case for has_license method """
+        self.assertEqual(
+            utils.access_nested_map(
+                repo, ('license', 'key')
+            ) == license_key, expected)
 
 
 if __name__ == '__main__':
