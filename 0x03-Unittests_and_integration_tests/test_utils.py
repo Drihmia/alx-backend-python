@@ -78,6 +78,7 @@ class TestMemoize(unittest.TestCase):
                           wraps=test.a_method) as mock_a_method:
             # print("\n---------:", test.a_property)
             test.a_property
+            test.a_property
 
             mock_a_method.assert_called_once()
 
