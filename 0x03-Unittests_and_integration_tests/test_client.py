@@ -82,6 +82,7 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
 
     @classmethod
     def mock_request_get(cls, url):
+        """ A class method to apply side effect on the mock get """
         mock_response = Mock()
         if url == 'https://api.github.com/orgs/google':
             mock_response.json.return_value = cls.org_payload
@@ -89,10 +90,17 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
             mock_response.json.return_value = cls.repos_payload
         return mock_response
 
-    def test_test(self):
+    def test_public_repos(self):
+        """ A test for public_repos method """
         git_client = GithubOrgClient('google')
         pub_repos = git_client.public_repos()
         self.assertEqual(pub_repos, self.expected_repos)
+
+    def test_public_repos_with_license(self):
+        """ A test for has_license method """
+        git_client = GithubOrgClient('google')
+        app_repos = git_client.public_repos('apache-2.0')
+        self.assertEqual(app_repos, self.apache2_repos)
 
 
 if __name__ == '__main__':
