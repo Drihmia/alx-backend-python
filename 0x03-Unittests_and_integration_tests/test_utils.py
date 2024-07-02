@@ -56,22 +56,23 @@ class TestGetJson(unittest.TestCase):
 
 class TestMemoize(unittest.TestCase):
     """A test case for the memoize method."""
-    class TestClass:
-        """ Testing class """
-
-        def a_method(self):
-            """A method that returns 42."""
-            return 42
-
-        @utils.memoize
-        def a_property(self):
-            """A property that returns the result of a_method."""
-            return self.a_method()
 
     @patch('test_utils.TestMemoize.TestClass.a_method')
     def test_memoize(self, mock_a_method):
         """A valid test case for the memoize method."""
-        test = self.TestClass()
+        class TestClass:
+            """ Testing class """
+
+            def a_method(self):
+                """A method that returns 42."""
+                return 42
+
+            @utils.memoize
+            def a_property(self):
+                """A property that returns the result of a_method."""
+                return self.a_method()
+
+        test = TestClass()
         test.a_property()
 
         mock_a_method.assert_called_once()
