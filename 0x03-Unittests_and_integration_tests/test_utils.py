@@ -5,6 +5,7 @@ This module contains the unit tests for the utils module.
 from parameterized import parameterized
 import unittest
 from unittest.mock import patch, Mock
+from utils import memoize
 import utils
 
 
@@ -57,7 +58,7 @@ class TestGetJson(unittest.TestCase):
 class TestMemoize(unittest.TestCase):
     """A test case for the memoize method."""
 
-    @patch('test_utils.TestMemoize.TestClass.a_method')
+    @patch('test_utils.TestMemoize.test_memoize.TestClass.a_method')
     def test_memoize(self, mock_a_method):
         """A valid test case for the memoize method."""
         class TestClass:
@@ -67,7 +68,7 @@ class TestMemoize(unittest.TestCase):
                 """A method that returns 42."""
                 return 42
 
-            @utils.memoize
+            @memoize
             def a_property(self):
                 """A property that returns the result of a_method."""
                 return self.a_method()
