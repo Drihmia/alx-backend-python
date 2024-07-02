@@ -77,10 +77,11 @@ class TestMemoize(unittest.TestCase):
         with patch.object(TestClass, 'a_method',
                           wraps=test.a_method) as mock_a_method:
             # print("\n---------:", test.a_property)
-            test.a_property
-            test.a_property
+            re_1 = test.a_property
+            re_2 = test.a_property
 
             mock_a_method.assert_called_once()
+            self.assertEqual(re_1, re_2)
 
 
 if __name__ == "__main__":
