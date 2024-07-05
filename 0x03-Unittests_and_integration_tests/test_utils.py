@@ -26,6 +26,7 @@ class TestAccessNestedMap(unittest.TestCase):  # noqa: N801
                            ({"a": 1}, ("a", "b"))])
     def test_access_nested_map_exception(self, nested_map: Mapping,
                                          path: Sequence) -> None:
+        """An invalid test for access_nested_map"""
         with self.assertRaises(KeyError):
             utils.access_nested_map(nested_map, path)
 
@@ -38,8 +39,8 @@ class TestGetJson(unittest.TestCase):  # noqa: N801
         ("http://holberton.io", {"payload": False})
     ])
     @patch('requests.get')
-    def test_get_json(self, test_url: str, test_payload: Dict[str, bool],
-                      mock_get: Mock) -> None:
+    def test_get_json(self, test_url: str, test_payload: Dict, mock_get: Mock
+                      ) -> None:
         """A valid tests for get_json"""
         # Method 1: ---------------------------------------------
         response = Mock()
